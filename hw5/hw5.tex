@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[a4paper,left=0.8in,right=0.8in,bottom=1in]{geometry}
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0em}
+\usepackage{floatrow}
+\usepackage{graphicx}
+\renewcommand{\familydefault}{\ttdefault}
+\title{\huge\texttt{CS215 Assignment 5}}
+\author{Aquib Nawaz(190050023),Rajesh Dasari(190050030),\\\texttt{Paavan Kumar(190050051)}}
+\date{\texttt{27 September 2020}}
+
+\begin{document}
+
+\maketitle
+\section*{Question 1}
+As N increases the error in the Ml estimate Map1 estimate and Map2 estimate almost become equal, this is true because it is Gaussian\\
+And we prefer MAP1 estimate because it gives the least error though the error has slightly higher Standard deviation.\\
+The image is saved as $final.png$ in the results folder under Q1, Other photos are also attached.
+\section*{Question 2}
+Here $y = (-1/\lambda)log(x)$  which gives $x = e^{-\lambda y }$.\\
+Or $g^{-1}(y) = e^{-\lambda y }$ using this
+\begin{equation*}
+    P(Y = y) = P(X = e^{-\lambda y })|\frac{d(e^{-\lambda y })}{dy}| = \lambda e^{-\lambda y }
+\end{equation*}
+Likelihood function is 
+\begin{equation*}
+    \prod_{i=1}^N(\lambda e^{-\lambda y_i}) = \lambda^N e^{-\lambda\sum_{i=1}^N y_i}
+\end{equation*}
+Differentiating it gives ML estimate as
+\begin{equation*}
+\hat{\lambda}^{ML} = \frac{N}{\sum_{i=1}^{N}y_i}    
+\end{equation*}
+  $P(\lambda) = c \lambda^{\alpha-1} e^{-\beta \lambda}$\\
+Now Likelihood function is where c is some constant.
+\begin{equation*}
+    c \lambda^{\alpha-1} e^{-\beta \lambda}\prod_{i=1}^N(\lambda e^{-\lambda y_i}) = c\lambda^{N+\alpha - 1} e^{-\lambda(\beta + \sum_{i=1}^N y_i)}
+\end{equation*}
+Differentiating it gives estimate as
+\begin{equation*}
+\hat{\lambda}^{PosteriorMean} = \frac{N+\alpha-1}{\beta + \sum_{i=1}^{N}y_i}
+\end{equation*}
+As N increases the error in the Ml estimate Map1 estimate and posterior mean estimate become equal which can be seen clearly from the formulas\\
+And we prefer posterior mean estimate as its error is low and the deviation from the error is also low\\
+The image is saved as $final.png$ in the results folder under Q2, Other photos are also attached
+\section*{Question 3}
+By Bayesian Statistical Analysis,\\
+posterior = $\frac{prior \times likelihood}{denominator}$\\
+Draw N samples of the random variable X
+\begin{equation*}
+    P(\theta | X) = \frac{P(X|\theta) P(\theta)}{\int_{\theta_m}^\infty P(X|\theta)P(\theta) d\theta}
+\end{equation*}
+Using P(X|$\theta$) = $(\frac{1}{\theta})^N$ since N samples are drawn and P($\theta$) = $(\frac{\theta_m}{\theta})^\alpha$\\
+We get\\
+\begin{equation*}
+    P(\theta|X) = \frac{n+\alpha-1}{\theta}{(\frac{\theta_m}{\theta})}^{(n+\alpha-1)} as 
+\int_{\theta_m}^{\infty} \frac{\theta_m^\alpha}{\theta^{n+\alpha}}d\theta = \frac{n+\alpha -1}{\theta_m^{n-1}}
+\end{equation*}
+\\
+Now we can see that P($\theta$|X) is max at $\theta_m$ according to the above equation but $\theta$ must also \\be greater than the max value of the Random variable X\\
+Therfore we get 
+\begin{equation*}
+    \hat{\theta}^{ML} = max(X_i, i = [n]) \  and \  \hat{\theta}^{MAP} = max( \theta_m,\hat{\theta}^{ML})
+\end{equation*}
+If the true value of $\theta$ is less than the value of $\theta_m$, then we can say that $\hat{\theta}^{MAP} = \theta_m$ in which case the estimate is not as good because we are getting the prior parameter value assumed which is not good , otherwise $\hat{\theta}^{MAP} = \hat{\theta}^{ML}$ is observed since X can take values more than $\theta_m$ which means that maximum-a-posterior estimate turns out to be same as ML estimate , The first case is not desirable where as the second is much desirable.\\
+Now coming to estimating the mean using the posterior pdf determined above ,\\
+\begin{equation*}
+    E(\theta) = \int_{\theta_m}^{\infty} \theta P(\theta|X) d\theta
+\end{equation*}
+\begin{equation*}
+    E(\theta) = \int_{\theta_m}^{\infty} \theta \frac{n+\alpha-1}{\theta}{\frac{\theta_m}{\theta}}^{(n+\alpha-1)} d\theta
+\end{equation*}
+\begin{equation*}
+    E(\theta) = \frac{n+\alpha-1}{n+\alpha-2} \theta_m
+\end{equation*}
+Now as n approaches infinity the value of $E(\theta) = \theta_m$ doesn't approach ML estimate which is not desirable and is bad estimate , it is as if we are doing the analysis for waste , because the choice of the parameters is totally upto us and we can use a very bad value to get the same value as a output. So this case is not desirable.
+\end{document}
